@@ -1,0 +1,17 @@
+{
+  "name": "cursovay",
+  "version": "1.0.0",
+  "description": "MVP социальной сети для обмена фотографиями",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "prettier": "^3.5.3"
+  },
+  "devDependencies": {
+    "globals": "^16.0.0"
+  }
+}
