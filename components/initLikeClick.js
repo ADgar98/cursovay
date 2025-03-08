@@ -20,7 +20,7 @@ export const initLikeClick = () => {
       like.classList.add("-loading-like")
 
       let userHostId =
-        "https://wedev-api.sky.pro/api/v1/prod/instapro/" +
+        "https://wedev-api.sky.pro/api/v1/ed-gajfullin/instapro/" +
         likeObjId.toString();
 
       if (likeObj.isLiked) {
