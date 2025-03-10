@@ -7,7 +7,6 @@ import { ru } from "https://esm.sh/date-fns/locale";
 
 export function renderPostsPageComponent({ appEl }) {
   // @TODO: реализовать рендер постов из api
-  // console.log("Актуальный список постов:", posts);
 
   /**
    * @TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
@@ -55,7 +54,7 @@ export function renderPostsPageComponent({ appEl }) {
         ${post.description}
       </p>
       <p class="post-date">
-         ${timeAgo}
+         ${timeAgo} назад
       </p>
     </li>
  
@@ -76,14 +75,12 @@ export function renderPostsPageComponent({ appEl }) {
     element: document.querySelector(".header-container"),
   });
 
-  if (user) {
-    for (let userEl of document.querySelectorAll(".post-header")) {
-      userEl.addEventListener("click", () => {
-        goToPage(USER_POSTS_PAGE, {
-          userId: userEl.dataset.userId,
-        });
+  for (let userEl of document.querySelectorAll(".post-header")) {
+    userEl.addEventListener("click", () => {
+      goToPage(USER_POSTS_PAGE, {
+        userId: userEl.dataset.userId,
       });
-    }
-    initLikeClick();
+    });
   }
+  initLikeClick();
 }

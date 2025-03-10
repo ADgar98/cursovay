@@ -1,5 +1,5 @@
 import { renderUploadImageComponent } from "./upload-image-component.js";
-import { sanitizeHtml } from "./saniyize.js";
+import { sanitizeHtml } from "../helpers.js";
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   const render = () => {
     // @TODO: Реализовать страницу добавления поста
@@ -28,10 +28,15 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
     }
 
     document.getElementById("add-button").addEventListener("click", () => {
-      onAddPostClick({
-        description: `${sanitizeHtml(document.querySelector("#description-input").value)}`,
-        imageUrl: `${imageUrl}`,
-      });
+      if (imageUrl && document.querySelector("#description-input").value) {
+        onAddPostClick({
+          description: `${sanitizeHtml(document.querySelector("#description-input").value)}`,
+          imageUrl: `${imageUrl}`,
+        });
+      } else {
+        alert ('Загрузите изображение и добавьте описание!')
+      }
+      
     });
   };
 

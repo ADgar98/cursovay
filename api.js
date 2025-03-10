@@ -1,3 +1,5 @@
+import { goToPage } from "./index.js";
+import { ADD_POSTS_PAGE } from "./routes.js";
 // Замени на свой, чтобы получить независимый от других набор данных.
 
 // "боевая" версия инстапро лежит в ключе prod
@@ -65,8 +67,15 @@ export function uploadImage({ file }) {
     method: "POST",
     body: data,
   }).then((response) => {
+    if (response.status === 400) {
+      throw new Error("Неверный формат изображения!");
+    }
     return response.json();
-  });
+  })
+  .catch((error) => {
+    alert(error.message)
+    goToPage(ADD_POSTS_PAGE)
+})
 }
 
 export function likePost({ token, baseHostId }) {

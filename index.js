@@ -17,7 +17,6 @@ import {
 } from "./helpers.js";
 import { renderUserPostsPageComponent } from "./components/renderUserPostsPageComponent.js";
 
-
 export let user = getUserFromLocalStorage();
 // export let getposts = (newposts) => {
 //   posts = newposts
@@ -77,16 +76,12 @@ export const goToPage = (newPage, data) => {
       page = LOADING_PAGE;
 
       posts = [];
-      // posts = [];
       function getposts() {
         return fetch(
           `https://wedev-api.sky.pro/api/v1/ed-gajfullin/instapro/user-posts/${data.userId}`,
           {
             method: "GET",
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          },
+          }
         )
           .then((response) => {
             if (response.status === 401) {
@@ -116,7 +111,7 @@ export const goToPage = (newPage, data) => {
       return renderApp();
     }
     page = newPage;
-    // page = USER_POSTS_PAGE;
+
     renderApp();
 
     return;
@@ -162,12 +157,13 @@ const renderApp = () => {
             description,
             imageUrl,
           }),
-        }).then((response) => {
-          return response.json();
-        });
-
-        console.log("Добавляю пост...", { description, imageUrl });
-        goToPage(POSTS_PAGE);
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then(() => {
+            goToPage(POSTS_PAGE);
+          });
       },
     });
   }

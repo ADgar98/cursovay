@@ -41,7 +41,7 @@ export const renderUserPostsPageComponent = ({ appEl }) => {
             ${post.description}
           </p>
           <p class="post-date">
-            ${timeAgo}
+            ${timeAgo} назад
           </p>
         </li>
      
@@ -71,7 +71,5 @@ export const renderUserPostsPageComponent = ({ appEl }) => {
     element: document.querySelector(".header-container"),
   });
 
-  if (user) {
-    initLikeClick();
-  }
+  initLikeClick();
 };
