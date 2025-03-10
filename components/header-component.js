@@ -44,7 +44,6 @@ export function renderHeaderComponent({ element }) {
   element
     .querySelector(".add-or-login-button")
     .addEventListener("click", () => {
-      debugger;
       if (user) {
         goToPage(ADD_POSTS_PAGE);
       } else {

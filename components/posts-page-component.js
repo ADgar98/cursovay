@@ -2,8 +2,8 @@ import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { user, posts, goToPage } from "../index.js";
 import { initLikeClick } from "./initLikeClick.js";
-// import { format } from "date-fns";
-// import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from "https://esm.sh/date-fns";
+import { ru } from "https://esm.sh/date-fns/locale";
 
 export function renderPostsPageComponent({ appEl }) {
   // @TODO: реализовать рендер постов из api
@@ -16,15 +16,9 @@ export function renderPostsPageComponent({ appEl }) {
 
   const appHtml = posts
     .map((post, index) => {
-      let postTime = new Date(post.createdAt);
-      postTime = postTime.toLocaleDateString("ru-RU", {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        // hour: "2-digit",
-        // minute: "2-digit",
-    })
-    .replace(/[\s,]/g, " ")
+      let timeAgo = formatDistanceToNow(new Date(post.createdAt), {
+        locale: ru,
+      });
 
       let likesNum = post.likes.length;
 
@@ -61,7 +55,7 @@ export function renderPostsPageComponent({ appEl }) {
         ${post.description}
       </p>
       <p class="post-date">
-        Дата публикации ${postTime}
+         ${timeAgo}
       </p>
     </li>
  

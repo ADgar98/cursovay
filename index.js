@@ -80,7 +80,7 @@ export const goToPage = (newPage, data) => {
       // posts = [];
       function getposts() {
         return fetch(
-          `https://wedev-api.sky.pro/api/v1/prod/instapro/user-posts/${data.userId}`,
+          `https://wedev-api.sky.pro/api/v1/ed-gajfullin/instapro/user-posts/${data.userId}`,
           {
             method: "GET",
             headers: {
@@ -153,7 +153,7 @@ const renderApp = () => {
       appEl,
       onAddPostClick({ description, imageUrl }) {
         // @TODO: реализовать добавление поста в API
-        fetch("https://wedev-api.sky.pro/api/v1/prod/instapro", {
+        fetch("https://wedev-api.sky.pro/api/v1/ed-gajfullin/instapro", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${user.token}`,
