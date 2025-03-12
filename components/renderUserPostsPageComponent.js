@@ -1,8 +1,8 @@
 import { renderHeaderComponent } from "./header-component.js";
 import { user, posts } from "../index.js";
 import { initLikeClick } from "./initLikeClick.js";
-import { formatDistanceToNow } from "https://esm.sh/date-fns";
-import { ru } from "https://esm.sh/date-fns/locale";
+import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export const renderUserPostsPageComponent = ({ appEl }) => {
   const appHtml = posts
