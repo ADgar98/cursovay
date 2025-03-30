@@ -1,20 +1,15 @@
 import { renderHeaderComponent } from "./header-component.js";
 import { user, posts } from "../index.js";
 import { initLikeClick } from "./initLikeClick.js";
+import { formatDistanceToNow } from "https://esm.sh/date-fns";
+import { ru } from "https://esm.sh/date-fns/locale";
 
 export const renderUserPostsPageComponent = ({ appEl }) => {
   const appHtml = posts
     .map((post, index) => {
-      let postTime = new Date(post.createdAt);
-      postTime = postTime
-        .toLocaleDateString("ru-RU", {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          // hour: "2-digit",
-          // minute: "2-digit",
-        })
-        .replace(/[\s,]/g, " ");
+      let timeAgo = formatDistanceToNow(new Date(post.createdAt), {
+        locale: ru,
+      });
 
       let likesNum = post.likes.length;
       const nameOfLikersAndId = post.likes;
@@ -46,7 +41,7 @@ export const renderUserPostsPageComponent = ({ appEl }) => {
             ${post.description}
           </p>
           <p class="post-date">
-            Дата публикации ${postTime}
+            ${timeAgo}
           </p>
         </li>
      

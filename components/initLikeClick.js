@@ -20,19 +20,38 @@ export const initLikeClick = () => {
       like.classList.add("-loading-like")
 
       let userHostId =
-        "https://wedev-api.sky.pro/api/v1/prod/instapro/" +
-        likeObjId.toString();
+      "https://wedev-api.sky.pro/api/v1/ed-gajfullin/instapro/" +
+      likeObjId.toString();
 
-      if (likeObj.isLiked) {
-        likeObj.isLiked = false;
-        dislikePost({ token: getToken(), baseHostId: userHostId }).then(
-          (data) => {
+      setTimeout(function() {
+        if (likeObj.isLiked) {
+          likeObj.isLiked = false;
+          dislikePost({ token: getToken(), baseHostId: userHostId }).then(
+            (data) => {
+              const lastEl = data.post.likes.length - 1
+              console.log(lastEl);
+              
+              const appEl = document.getElementById("app");
+              posts[indexLike].likes.shift(data.post.likes[lastEl]);
+  
+              if (page === POSTS_PAGE) {
+                renderPostsPageComponent({
+                  appEl,
+                });
+              } else if (page === USER_POSTS_PAGE) {
+                renderUserPostsPageComponent({
+                  appEl,
+                });
+              }
+            },
+          );
+        } else {
+          likePost({ token: getToken(), baseHostId: userHostId }).then((data) => {
             const lastEl = data.post.likes.length - 1
-            console.log(lastEl);
-            
             const appEl = document.getElementById("app");
-            posts[indexLike].likes.shift(data.post.likes[lastEl]);
-
+            posts[indexLike].likes.unshift(data.post.likes[lastEl]);
+            console.log(data.post.likes);
+  
             if (page === POSTS_PAGE) {
               renderPostsPageComponent({
                 appEl,
@@ -42,27 +61,16 @@ export const initLikeClick = () => {
                 appEl,
               });
             }
-          },
-        );
-      } else {
-        likePost({ token: getToken(), baseHostId: userHostId }).then((data) => {
-          const lastEl = data.post.likes.length - 1
-          const appEl = document.getElementById("app");
-          posts[indexLike].likes.unshift(data.post.likes[lastEl]);
-          console.log(data.post.likes);
+          });
+          likeObj.isLiked = true;
+        }
+        
+      }, 2000); // 
+    
 
-          if (page === POSTS_PAGE) {
-            renderPostsPageComponent({
-              appEl,
-            });
-          } else if (page === USER_POSTS_PAGE) {
-            renderUserPostsPageComponent({
-              appEl,
-            });
-          }
-        });
-        likeObj.isLiked = true;
-      }
+     
+
+      
       // console.log(posts);
       
     });

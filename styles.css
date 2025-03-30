@@ -236,5 +236,5 @@
   }
 }
 .-loading-like {
-  animation: rotating 2s linear infinite;
+  animation: rotating 2s linear 1;
 }
