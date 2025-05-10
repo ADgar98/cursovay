@@ -1,7 +1,9 @@
+import { goToPage } from "./index.js";
+import { ADD_POSTS_PAGE } from "./routes.js";
 // Замени на свой, чтобы получить независимый от других набор данных.
 
 // "боевая" версия инстапро лежит в ключе prod
-const personalKey = "prod";
+const personalKey = "ed-gajfullin";
 const baseHost = "https://wedev-api.sky.pro";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
@@ -65,8 +67,15 @@ export function uploadImage({ file }) {
     method: "POST",
     body: data,
   }).then((response) => {
+    if (response.status === 400) {
+      throw new Error("Неверный формат изображения!");
+    }
     return response.json();
-  });
+  })
+  .catch((error) => {
+    alert(error.message)
+    goToPage(ADD_POSTS_PAGE)
+})
 }
 
 export function likePost({ token, baseHostId }) {

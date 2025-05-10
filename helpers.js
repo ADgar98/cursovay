@@ -13,3 +13,6 @@ export function getUserFromLocalStorage(user) {
 export function removeUserFromLocalStorage(user) {
   window.localStorage.removeItem("user");
 }
+export const sanitizeHtml = (value) => {
+  return value.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+}

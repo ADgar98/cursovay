@@ -2,12 +2,11 @@ import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { user, posts, goToPage } from "../index.js";
 import { initLikeClick } from "./initLikeClick.js";
-// import { format } from "date-fns";
-// import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export function renderPostsPageComponent({ appEl }) {
   // @TODO: реализовать рендер постов из api
-  // console.log("Актуальный список постов:", posts);
 
   /**
    * @TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
@@ -16,15 +15,9 @@ export function renderPostsPageComponent({ appEl }) {
 
   const appHtml = posts
     .map((post, index) => {
-      let postTime = new Date(post.createdAt);
-      postTime = postTime.toLocaleDateString("ru-RU", {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        // hour: "2-digit",
-        // minute: "2-digit",
-    })
-    .replace(/[\s,]/g, " ")
+      let timeAgo = formatDistanceToNow(new Date(post.createdAt), {
+        locale: ru,
+      });
 
       let likesNum = post.likes.length;
 
@@ -61,7 +54,7 @@ export function renderPostsPageComponent({ appEl }) {
         ${post.description}
       </p>
       <p class="post-date">
-        Дата публикации ${postTime}
+         ${timeAgo} назад
       </p>
     </li>
  
@@ -82,14 +75,12 @@ export function renderPostsPageComponent({ appEl }) {
     element: document.querySelector(".header-container"),
   });
 
-  if (user) {
-    for (let userEl of document.querySelectorAll(".post-header")) {
-      userEl.addEventListener("click", () => {
-        goToPage(USER_POSTS_PAGE, {
-          userId: userEl.dataset.userId,
-        });
+  for (let userEl of document.querySelectorAll(".post-header")) {
+    userEl.addEventListener("click", () => {
+      goToPage(USER_POSTS_PAGE, {
+        userId: userEl.dataset.userId,
       });
-    }
-    initLikeClick();
+    });
   }
+  initLikeClick();
 }

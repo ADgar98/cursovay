@@ -3,7 +3,7 @@ import { loginUser } from "../api.js";
 // import { setUser } from "../index.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 import { registerUser } from "../api.js";
-import { sanitizeHtml } from "./saniyize.js";
+import { sanitizeHtml } from "../helpers.js";
 
 /**
  * Компонент страницы авторизации.
